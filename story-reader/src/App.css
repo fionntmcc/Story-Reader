@@ -1,0 +1,164 @@
+:root {
+
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-size: 18px;
+  font-weight: 400;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+
+  --body-background-color: #fff;
+  --secondary-background-color: #f7f7f7;
+
+  --primary-text-color: #000;
+  --secondary-text-color: #4b4c53;
+
+  --primary-border-color: #4b4c53;
+
+  --button-solid-background-color: #000;
+  --button-solid-text-color: #fff;
+
+  --button-outlined-background-color: transparent;
+  --button-outlined-text-color: #000;
+}
+
+[data-theme='dark'] {
+  --body-background-color: #1f2028;
+  --secondary-background-color: #2e3039;
+
+  --primary-text-color: rgba(255, 255, 255, 0.87);
+  --secondary-text-color: #4b4c53;
+
+  --primary-border-color: #4b4c53;
+
+  --button-solid-background-color: #fff;
+  --button-solid-text-color: #000;
+
+  --button-outlined-background-color: transparent;
+  --button-outlined-text-color: #fff;
+}
+
+[data-theme="purple"] {
+  --primary-background-color: rgba(24, 16, 40, 1);
+  --secondary-background-color: rgba(44, 36, 70, 1);
+
+  --primary-text-color: rgba(255, 255, 255, 0.87);
+  --secondary-text-color: #8549a7;
+
+  --primary-border-color: #8549a7;
+
+  --button-solid-background-color: #fff;
+  --button-solid-text-color: #000;
+
+  --button-outlined-background-color: transparent;
+  --button-outlined-text-color: #fff;
+
+}
+
+.App {
+  text-align: center;
+  height: 100%;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+body {
+  --color-background: #fafafa;
+  --color-foreground: #1f2023;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    --color-background: #1f2023;
+    --color-foreground: #efefef;
+  }
+}
+
+.App-header {
+  background-color: var(--body_background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: var(--body_color);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.App.light {
+  background-color: white;
+  color: black;
+}
+
+.App.dark {
+  background-color: black;
+  color: white;
+}
+
+.App.small {
+  font-size: 12px;
+}
+
+.App.medium {
+  font-size: 16px;
+}
+
+.App.large {
+  font-size: 20px;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+#carousel-img {
+  width: auto;
+  height: 800px;
+  object-fit: scale-down;
+}
+
+#carousel-container {
+  width: 100%;
+  height: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-img {
+  width: auto;
+  height: 80%;
+}
