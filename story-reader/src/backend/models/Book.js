@@ -1,4 +1,3 @@
-const { text } = require('body-parser');
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({

@@ -3,12 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Badge, Button, ButtonGroup } from 'react-bootstrap';
 import TabBar from './TabBar.js';
-import { ThemeContext } from '../context/ThemeContext';
 import { ToggleButton } from 'react-bootstrap';
 import { set } from 'mongoose';
 
 export default function Read() {
-  const { theme } = useContext(ThemeContext);
   let { id } = useParams();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -43,7 +41,7 @@ export default function Read() {
       .catch((error) => {
         console.log(error);
       });
-  }, [id, theme]);
+  }, [id]);
 
   // render of active book and page
   useEffect(() => {
@@ -97,7 +95,7 @@ export default function Read() {
   }
 
   return (
-    <div className={`read-component ${theme}`}>
+    <div className={`read-component`}>
       <h1 className="center-text">{title} <Badge bg="secondary">{year}</Badge></h1>
 
       <div className="form-check form-switch" style={{ marginBottom: '20px' }}>

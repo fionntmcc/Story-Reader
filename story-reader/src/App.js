@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Update from './components/Update';
 import Footer from "./components/Footer";
 
+import Upload from "./components/Upload";
+
 function App() {
   return (
     <div id="app" data-theme="dark">
@@ -21,6 +23,7 @@ function App() {
           <Route path="/read/:id" element={<Read />} />
           <Route path="/write" element={<Write />} />
           <Route path="/update/:id" element={<Update />} />
+          <Route path="/file/upload" element={<Upload />} />
         </Routes>
       </Router>
       <Footer></Footer>
