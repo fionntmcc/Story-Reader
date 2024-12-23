@@ -78,13 +78,17 @@ app.get('/files', async (req, res) => {
 // Get file by filename
 app.get('/file/:filename', async (req, res) => {
   try {
-    const file = await gfs.files.find({ filename: req.params.filename }).toArray();
-    if (!file || file.length === 0) { // No file exists
+    const files = await gfs.files.find({ filename: req.params.filename }).toArray();
+    if (!files || files.length === 0) { // No file exists
       return res.status(404).json({ err: 'No file exists' });
     }
 
-    const readStream = gfs.openDownloadStreamByName(file[0].filename);
-    readStream.pipe(res);
+    var mime = files[0].contentType;
+    var filename = files[0].filename;
+    res.set('Content-Type', mime);
+    res.set('originalname', filename);
+    gfs.createReadStream({ _id: file_id })
+    .pipe(res);
   } catch (error) {
     console.error('Error getting file:', error);
     res.status(500).json({ message: 'Internal Server Error' });
