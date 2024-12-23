@@ -63,11 +63,23 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   await res.json({ file: req.file });
 });
 
+// Get all files
+app.get('/files', async (req, res) => {
+  try {
+    const files = await gfs.files.find().toArray();
+    console.log('Files:', files);
+    res.json(files);
+  } catch (error) {
+    console.error('Error getting files:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
 // Get file by filename
 app.get('/file/:filename', async (req, res) => {
   try {
-    const file = await gfs.find({ filename: req.params.filename }).toArray();
-    if (!file || file.length === 0) {
+    const file = await gfs.files.find({ filename: req.params.filename }).toArray();
+    if (!file || file.length === 0) { // No file exists
       return res.status(404).json({ err: 'No file exists' });
     }
 

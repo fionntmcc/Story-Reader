@@ -29,7 +29,7 @@ const Upload = () => {
         })
             .then((res) => {
                 console.log(res.data);
-                navigate('/browse');
+                //navigate('/browse');
             })
             .catch((err) => console.log(err.data));
     };
