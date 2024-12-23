@@ -26,7 +26,13 @@ let gfs;
 mongoose.connect(mongoURI, { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to MongoDB');
-    // init gfs stream
+
+    // Init gfs bucket
+    gridfsBucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, {
+   bucketName: 'fileBucket'
+    });
+
+    // Init gfs stream
     gfs = Grid(mongoose.connection.db, mongoose.mongo);
     gfs.collection('files'); // collection name
   })
@@ -44,7 +50,7 @@ const storage = new GridFsStorage({
       const filename = buf.toString('hex') + path.extname(file.originalname)
       const fileInfo = {
         filename: filename,
-        bucketName: 'files'
+        bucketName: 'fileBucket'
       };
       await fileModel.create(fileInfo);
       console.log('File created:', fileInfo);
@@ -78,17 +84,19 @@ app.get('/files', async (req, res) => {
 // Get file by filename
 app.get('/file/:filename', async (req, res) => {
   try {
-    const files = await gfs.files.find({ filename: req.params.filename }).toArray();
-    if (!files || files.length === 0) { // No file exists
+    const file = await gfs.files.findOne({ filename: req.params.filename });
+    console.log('File:', file);
+    if (!file) { // No file exists
       return res.status(404).json({ err: 'No file exists' });
     }
 
-    var mime = files[0].contentType;
-    var filename = files[0].filename;
+    var mime = file.contentType;
+    var filename = file.filename;
     res.set('Content-Type', mime);
     res.set('originalname', filename);
-    gfs.createReadStream({ _id: file_id })
-    .pipe(res);
+    
+    gridfsBucket.openDownloadStream(file._id)
+      .pipe(res);
   } catch (error) {
     console.error('Error getting file:', error);
     res.status(500).json({ message: 'Internal Server Error' });
